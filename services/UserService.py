@@ -1,6 +1,6 @@
-import Entities.User
+from Entities.User import User
 
 
 def registerUser():
-    user = Entities.User()
+    user = User()
     return user

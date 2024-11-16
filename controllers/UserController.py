@@ -6,7 +6,7 @@ from services import UserService
 # Define a Blueprint
 home_bp = Blueprint('home', __name__)
 
-@home_bp.route("/register_user", methods=["POST"])
+@home_bp.route("/register_user", methods=["GET","POST"])
 def registerUser():
     user = UserService.registerUser()
     return jsonify(user)

@@ -1,5 +1,5 @@
 from flask import Flask
-from controllers.PlayerController import home_bp
+from controllers.UserController import home_bp
 
 app = Flask(__name__)
 
