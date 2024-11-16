@@ -9,7 +9,7 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route("/register_user", methods=["GET","POST"])
 def registerUser():
     user = UserService.registerUser()
-    return jsonify(user)
+    return jsonify(user.id)
     #create usr
     #initiate quantum cir
     #give Id

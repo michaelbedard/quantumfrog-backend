@@ -21,23 +21,16 @@ worlds = {
 
 }
 
-# Randomly chose worlds for the firefly and the frog
-available_keys = [key for key in worlds.keys() if key != "|0>"]
-firefly_key = random.choice(available_keys)
-firefly = worlds[firefly_key]
+def get_firefly_world():
+    available_keys = [key for key in worlds.keys() if key != "|0>"]
+    firefly_key = random.choice(available_keys)
+    firefly = worlds[firefly_key]
+    return firefly
 
-frog = worlds["|0>"]
+def get_user_world():
+    return worlds["|0>"]
 
-print(frog.data, firefly.data, frog)
 
-# inner product
-inner_product = firefly.inner(frog)
-
-# proximity index from 0 to 1: 0 -> orthogonal states; 1 -> identical states (ignoring the global phase factor)
-# It's the probability that the 2 states would be aligned if measured
-proximity_index = abs(inner_product) ** 2
-
-print(proximity_index)
-
+print(type(get_user_world().data))
 
 
