@@ -1,4 +1,4 @@
-from qiskit import QuantumCircuit
+
 import numpy as np
 from qiskit.quantum_info import Statevector
 import random
@@ -27,10 +27,9 @@ def get_firefly_world():
     firefly = worlds[firefly_key]
     return firefly
 
-def get_user_world():
+def get_default_world():
     return worlds["|0>"]
 
 
-print(type(get_user_world().data))
 
 
