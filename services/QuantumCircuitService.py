@@ -1,7 +1,8 @@
 
 import numpy as np
 from qiskit.quantum_info import Statevector
-from qiskit import QuantumCircuit, Aer, transpile
+from qiskit_aer import AerSimulator
+from qiskit import QuantumCircuit, transpile
 
 
 def get_proximity_index(firefly, frog):
@@ -13,25 +14,47 @@ def get_proximity_index(firefly, frog):
     proximity_index = abs(inner_product) ** 2
     return proximity_index
 
-def hadamard_gate(state):
+def gates(state, gate):
+
     # making sure state is a Statevector
     if not isinstance(state, Statevector):
         raise ValueError("Type error : should be a Statevector")
 
+    valid_gates = ['h', 'x', 'z']
+    if gate not in valid_gates:
+        raise ValueError(f"The gate '{gate}' is invalid. Please enter either h, x or z.")
+
+    # Define quantum circuit
     qc = QuantumCircuit(1)
-    qc.h(0)
 
-    # Quantum state simulator
-    backend = Aer.get_backend('statevector_simulator')
+    if gate == 'h':
+        qc.h(0)
+    elif gate == 'z':
+        qc.z(0)
+    elif gate == 'x':
+        qc.x(0)
 
-    # Compute circuit
+
+    # Use AerSimulator directly
+    simulator = AerSimulator()
     qc.save_statevector()
-    result = backend.run(transpile(qc, backend), initial_state=state).result()
 
+    # Compile and run the circuit on the simulator
+    transpiled_qc = transpile(qc, simulator)
+    result = simulator.run(transpiled_qc, initial_state=state).result()
+
+    # Get the final statevector
     final_state = result.get_statevector()
 
     return final_state
 
 
 
+state = Statevector([0,1])
+print(gates(state, 'h'))
+print(gates(state, 'x'))
+print(gates(state, 'z'))
 
+state2 = Statevector([1, 0])
+
+print(get_proximity_index(state, state2))

@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify
 import json
+import numpy as np
 
+from Utils.JsonUtils import ToJson
 from services import UserService
-from json import JSONEncoder
-from Entities.JSON import NumpyArrayEncoder
+from Utils.JSON import NumpyArrayEncoder
 
 # Define a Blueprint
 home_bp = Blueprint('home', __name__)
@@ -11,21 +12,24 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route("/register_user", methods=["GET","POST"])
 def registerUser():
     user = UserService.registerUser()
-
-    numpyData = {"id": user.id, "state": user.state.data.real}
-    encodedNumpyData = json.dumps(numpyData, cls=NumpyArrayEncoder)
-
-    return jsonify(encodedNumpyData)
+    return ToJson(user)
 
     #create usr
     #initiate quantum cir
     #give Id
 
     # ID , state(array d'amplitude) ou objet en format json
-
-@home_bp.route("/", methods=["GET"])
+@home_bp.route("/get_user", methods=["GET"])
 def getUser():
     id = request.args.get("id", 0)
+    user = UserService.getUser_from_ID(id)
+
+    return ToJson(user)
+
+
+@home_bp.route("/", methods=["GET"])
+def home():
+
 
 
     # Call ExampleCircuit if needed
