@@ -9,7 +9,7 @@ from Utils.JSON import NumpyArrayEncoder
 # Define a Blueprint
 home_bp = Blueprint('home', __name__)
 
-@home_bp.route("/register_user", methods=["GET","POST"])
+@home_bp.route("/register_user", methods=["GET"])
 def registerUser():
     user = UserService.registerUser()
     return toJson(user)

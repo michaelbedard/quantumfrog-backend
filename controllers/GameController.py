@@ -9,7 +9,7 @@ from services.GameService import update_gate
 game_bp = Blueprint('game', __name__)
 
 
-@game_bp.route("/traverse_gate", methods=["GET", "POST"])
+@game_bp.route("/traverse_gate", methods=["GET"])
 def gate():
     id = request.args.get("id", 0)
     gate_type = request.args.get("gate", 'i')
@@ -19,7 +19,7 @@ def gate():
 
     return toJson(user)
 
-@game_bp.route("/get_probability", methods=["GET", "POST"])
+@game_bp.route("/get_probability", methods=["GET"])
 def getProb():
 
     return "not yet"
