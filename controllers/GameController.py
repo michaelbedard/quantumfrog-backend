@@ -1,9 +1,10 @@
 from flask import Blueprint, request, jsonify
 
 from Utils.JsonUtils import stateToJson
+from Utils.latexUtils import parse_latex_to_string
 from services import UserService
 from services.QuantumCircuitService import quantum_gates
-from services.GameService import update_gate, get_bracket
+from services.GameService import update_gate, get_bracket, get_world_id
 from services.QuantumCircuitService import get_proximity_index
 from services.UserService import getUser_from_ID
 # Define a Blueprint
@@ -31,5 +32,15 @@ def getProb():
 @game_bp.route("/get_bracket", methods=["GET"])
 def getBracket():
     id = request.args.get("id", 0)
-    drawing = get_bracket(id)
+    latex_source = get_bracket(id)
+    id = get_world_id(str(latex_source))
+    return jsonify(id)
+
+@game_bp.route("/get_world", methods=["GET"])
+def getWorld():
+    id = request.args.get("id", 0)
+    user = getUser_from_ID(id)
+    world = getWorld(user.frog_state)
+    return jsonify(world)
+
 
