@@ -2,14 +2,24 @@ import json
 
 import numpy as np
 from flask import jsonify
+from json import JSONEncoder
 
-from Utils.JSON import NumpyArrayEncoder
+class NumpyArrayEncoder(JSONEncoder):
 
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return JSONEncoder.default(self, obj)
 
-def toJson(user) :
-    angle = np.rad2deg(np.angle(user.frog_state.data))
-    numpyData = {"id": user.id, "state": user.frog_state.data.real, "angle": angle[0]}
+def stateToJson(user) :
+    amplitudes = user.frog_state.data.real
+    angle = np.rad2deg(np.arctan(amplitudes[1]/amplitudes[0]))
+    numpyData = {"id": user.id, "state": amplitudes, "angle": angle}
     encodedNumpyData = json.dumps(numpyData, cls=NumpyArrayEncoder)
 
+
     return jsonify(encodedNumpyData)
+
+def proxToJson():
+    pass
 

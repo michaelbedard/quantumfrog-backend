@@ -2,9 +2,9 @@ from flask import Blueprint, request, jsonify
 import json
 import numpy as np
 
-from Utils.JsonUtils import toJson
+from Utils.JsonUtils import stateToJson
 from services import UserService
-from Utils.JSON import NumpyArrayEncoder
+
 
 # Define a Blueprint
 home_bp = Blueprint('home', __name__)
@@ -12,7 +12,7 @@ home_bp = Blueprint('home', __name__)
 @home_bp.route("/register_user", methods=["GET"])
 def registerUser():
     user = UserService.registerUser()
-    return toJson(user)
+    return stateToJson(user)
 
     #create usr
     #initiate quantum cir
@@ -24,7 +24,7 @@ def getUser():
     id = request.args.get("id", 0)
     user = UserService.getUser_from_ID(id)
 
-    return toJson(user)
+    return stateToJson(user)
 
 
 @home_bp.route("/", methods=["GET"])
