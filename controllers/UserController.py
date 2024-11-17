@@ -4,7 +4,7 @@ import numpy as np
 
 from Utils.JsonUtils import toJson
 from services import UserService
-from Utils.JSON import NumpyArrayEncoder
+
 
 # Define a Blueprint
 home_bp = Blueprint('home', __name__)
