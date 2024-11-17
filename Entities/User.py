@@ -14,5 +14,8 @@ class User(object):
         self.frog_state = get_default_world()
         self.firefly_state = get_firefly_world()
 
+    def setFrogState(self, state:Statevector):
+        self.frog_state = state
+
 
 
