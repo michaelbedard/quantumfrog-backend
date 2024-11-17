@@ -11,7 +11,7 @@ class NumpyArrayEncoder(JSONEncoder):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
-def toJson(user) :
+def stateToJson(user) :
     amplitudes = user.frog_state.data.real
     angle = np.rad2deg(np.arctan(amplitudes[1]/amplitudes[0]))
     numpyData = {"id": user.id, "state": amplitudes, "angle": angle}
@@ -19,4 +19,7 @@ def toJson(user) :
 
 
     return jsonify(encodedNumpyData)
+
+def proxToJson():
+    pass
 
