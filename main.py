@@ -7,7 +7,7 @@ from services.UserService import registerUser
 
 app = Flask(__name__)
 
-CORS(app, supports_credentials=False, origins=[
+CORS(app, supports_credentials=True, origins=[
     "http://localhost:3000",
     "https://quantumfrog-frontend.vercel.app",
     "https://quantumfrog-frontend-pduuzbfv6-michael-bedards-projects.vercel.app",
